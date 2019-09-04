@@ -3,6 +3,10 @@ import { Consumer } from './context';
 import { bindActionCreators } from '../redux';
 export default function (mapStateToProps, mapDispatchToProps) {
 	return function (Component) {
+		/**
+		 * 我们写这个代理组件是为了逻辑复用
+		 * 复用订阅的逻辑
+		 */
 		class Proxy extends Component {
 			constructor(props) {
 				super(props);

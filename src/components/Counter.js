@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import store from '../store'
-// import * as types from '../store/action-types'
-import actions from '../store/action/counter'
+import * as types from '../store/action-types'
+import actions from '../store/actions/counter'
 import bindActionCreators from '../redux/bindActionCreators'
+import { connect } from '../react-redux'
 
 let newActions = bindActionCreators(actions, store.dispatch)
 
@@ -28,7 +29,7 @@ let newActions = bindActionCreators(actions, store.dispatch)
 // 	decrement: () => store.dispatch(actions.decrement())
 // }
 
-export default class Counter extends Component {
+class Counter extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -70,3 +71,22 @@ export default class Counter extends Component {
 		)
 	}
 }
+
+let mapStateToProps = state => state.counter
+// 1. 
+// let mapDispatchToProps = dispatch => ({
+// 	increment: () => dispatch({ type: types.INCREMENT })
+// })
+
+// 2. 
+// let mapDispatchToProps = dispatch => ({
+// 	increment: () => dispatch(actions.increment)
+// })
+// 3.
+let mapDispatchToProps = actions
+
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(Counter)
