@@ -1,9 +1,11 @@
-export default function bindActionCreators(actions,dispatch){
-    let newActions = {};
-    for(let attr in actions){
-     newActions[attr] = function(){
-         dispatch(actions[attr].apply(null,arguments));
-     }
+export default function bindActionCreators(actionCreators, dispatch) {
+    var boundActionCreators = {};
+    for (var key in actionCreators) {
+        let actionCreator = actionCreators[key];
+
+        boundActionCreators[key] = function () {
+            return dispatch(actionCreator.apply(this, arguments));
+        };
     }
-    return newActions;
- }
+    return boundActionCreators;
+}
